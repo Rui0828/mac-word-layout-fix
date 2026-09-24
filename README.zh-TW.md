@@ -18,7 +18,7 @@
 
 別人傳來一份 `.doc`，在 Windows 上剛好一頁，用 Mac 打開卻多出第二頁，字型也不對。
 
-**問題不只是字型。** 很多網站系統（學校、人事系統、政府網站）匯出的「Word 檔」，其實是副檔名取成 `.doc` 的網頁。**Mac 版 Word 會讀錯這種檔案的表格列高，每一列都比 Windows 高 33%。** Word 裡沒有任何設定能改。
+**問題不只是字型。** 很多網站系統（學校、人事系統、政府網站）匯出的「Word 檔」，其實是副檔名取成 `.doc` 的網頁。**Mac 版 Word 會讀錯這種檔案的表格列高和儲存格內距，每一列都比 Windows 高。** Word 裡沒有任何設定能改。
 
 這個專案就是修正它。
 
@@ -44,7 +44,9 @@ cd mac-word-layout-fix
 ./install.sh
 ```
 
-重新開啟 Word 就完成了：網頁格式的文件打開時會自動修正。也可以從 **指令碼選單（📜）→ Fix HTML Table Layout** 手動執行。
+重新開啟 Word 就完成了：網頁格式的文件打開時會自動修正。
+
+沒有安裝增益集時，也可以從 **指令碼選單（📜）→ Fix HTML Table Layout** 手動執行。這個版本比較慢（從 Word 外部操作）；有安裝增益集時，它只會告訴你文件已經修正過了。
 
 可以用 [`demo/coffee-guide.doc`](demo/coffee-guide.doc) 試試：2 頁 → 1 頁。
 
@@ -56,7 +58,7 @@ cd mac-word-layout-fix
   <img src="docs/how-it-works.png" alt="原理：Windows 把 36px 換算成 27pt，Mac 讀成 36pt，修正後變回 27pt" width="100%">
 </p>
 
-網頁表格的高度常常沒寫單位，代表 CSS 像素。Windows 以 96 dpi 換算（× 0.75），Mac 版 Word 卻直接把數字當成 pt，但同一份檔案裡的字級它又換算正確。調整「網頁選項 → 每英吋像素」對這個問題沒有作用。
+網頁表格的列高和儲存格內距常常沒寫單位（`<td height="36">`、`cellpadding="3"`），代表 CSS 像素。Windows 以 96 dpi 換算（× 0.75），Mac 版 Word 卻直接把數字當成 pt，但同一份檔案裡的字級它又換算正確。調整「網頁選項 → 每英吋像素」對這個問題沒有作用。
 
 用同一份檔案，在 Mac 版 Word 16.113 和 Windows 版 Word 16.0（build 20326）實測：
 
@@ -65,9 +67,11 @@ cd mac-word-layout-fix
 | `height="36"` | 27 pt | 36 pt ❌ | 27 pt ✅ |
 | `height="72"` | 54 pt | 72 pt ❌ | 54 pt ✅ |
 | `height="114"` | 85.5 pt | 114 pt ❌ | 85.5 pt ✅ |
+| `cellpadding="3"` | 2.25 pt | 3 pt ❌ | 2.25 pt ✅ |
+| `cellpadding="2"` | 1.5 pt | 2 pt ❌ | 1.5 pt ✅ |
 | 字級 `15px` | 11.5 pt | 11.5 pt | 11.5 pt |
 
-修正工具會判斷文件是不是以網頁格式開啟，走過每一個表格（包含內層表格），把列高乘以 0.75。只改 Word 裡開著的內容。
+修正工具會判斷文件是不是以網頁格式開啟，走過每一個表格（包含內層表格），把列高和儲存格內距乘以 0.75。在 Word 內部執行，不到一秒就完成。只改 Word 裡開著的內容。
 
 ## 🤖 自動修正增益集
 
@@ -147,7 +151,7 @@ Windows 內附字型的授權只限那台 Windows 使用。微軟的[字型常�
 
 <br>
 
-字型相同再加上這個修正，我們測試的分頁位置都一致。不過 Word 在兩個平台之間仍可能有極小的排版差異（[Word MVP 的說明](https://wordmvp.com/Mac/Differences.html)），一定要完全一樣的文件，建議在 Windows 上轉成 PDF。
+字型相同再加上這個修正，我們測試的分頁位置都跟 Windows 一致，包括一份原本在 Mac 上會多擠幾行到第 2 頁的真實兩頁表單。不過 Word 在兩個平台之間仍可能有極小的排版差異（[Word MVP 的說明](https://wordmvp.com/Mac/Differences.html)），一定要完全一樣的文件，建議在 Windows 上轉成 PDF。
 </details>
 
 ---

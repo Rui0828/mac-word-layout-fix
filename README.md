@@ -18,7 +18,7 @@
 
 Someone sends you a `.doc`. On Windows it fits on one page. On your Mac it spills onto a second page, and the fonts look wrong.
 
-**The fonts aren't the only problem.** Many web systems (schools, HR portals, government sites) export "Word" files that are actually HTML pages with a `.doc` extension. **Word for Mac misreads their table row heights, so every row comes out 33% taller than on Windows.** No setting in Word changes that.
+**The fonts aren't the only problem.** Many web systems (schools, HR portals, government sites) export "Word" files that are actually HTML pages with a `.doc` extension. **Word for Mac misreads their table row heights and cell padding, so every row comes out taller than on Windows.** No setting in Word changes that.
 
 This repo fixes it.
 
@@ -44,7 +44,9 @@ cd mac-word-layout-fix
 ./install.sh
 ```
 
-Restart Word. That's it: HTML-based documents are fixed as they open. You can also run the fix by hand from **Scripts menu (📜) → Fix HTML Table Layout**.
+Restart Word. That's it: HTML-based documents are fixed as they open.
+
+Without the add-in, you can run the fix by hand from **Scripts menu (📜) → Fix HTML Table Layout**. That version is slower (it drives Word from outside), and when the add-in is installed it just confirms the document is already fixed.
 
 Try it on [`demo/coffee-guide.doc`](demo/coffee-guide.doc): 2 pages → 1 page.
 
@@ -56,7 +58,7 @@ To remove it: `./uninstall.sh`
   <img src="docs/how-it-works.png" alt="How it works: Windows converts 36px to 27pt, Mac reads 36pt, the fix scales it to 27pt" width="100%">
 </p>
 
-HTML table heights are often written without a unit, meaning CSS pixels. Windows converts them at 96 dpi (× 0.75). Word for Mac uses the number as points, even though it converts font sizes in the same file correctly. The *Web Options → Pixels per inch* setting doesn't affect it.
+HTML tables often set row heights and cell padding without a unit (`<td height="36">`, `cellpadding="3"`), meaning CSS pixels. Windows converts them at 96 dpi (× 0.75). Word for Mac uses the number as points, even though it converts font sizes in the same file correctly. The *Web Options → Pixels per inch* setting doesn't affect it.
 
 Measured on the same file with Word 16.113 for Mac and Word 16.0 (build 20326) for Windows:
 
@@ -65,9 +67,11 @@ Measured on the same file with Word 16.113 for Mac and Word 16.0 (build 20326) f
 | `height="36"` | 27 pt | 36 pt ❌ | 27 pt ✅ |
 | `height="72"` | 54 pt | 72 pt ❌ | 54 pt ✅ |
 | `height="114"` | 85.5 pt | 114 pt ❌ | 85.5 pt ✅ |
+| `cellpadding="3"` | 2.25 pt | 3 pt ❌ | 2.25 pt ✅ |
+| `cellpadding="2"` | 1.5 pt | 2 pt ❌ | 1.5 pt ✅ |
 | font `15px` | 11.5 pt | 11.5 pt | 11.5 pt |
 
-The fix detects documents that Word opened as HTML, walks every table (including nested ones), and scales row heights by 0.75. It only changes the document in memory.
+The fix detects documents that Word opened as HTML, walks every table (including nested ones), and scales row heights and cell padding by 0.75. It runs inside Word and takes well under a second. It only changes the document in memory.
 
 ## 🤖 Auto-fix add-in
 
@@ -147,7 +151,7 @@ Open it in a text editor. If it starts with `<html`, it's HTML-based. The Script
 
 <br>
 
-With matching fonts and this fix, page breaks match in our tests. Word can still reflow text very slightly between platforms ([Word MVP notes](https://wordmvp.com/Mac/Differences.html)), so for documents that must be pixel-perfect, export a PDF from Windows.
+With matching fonts and this fix, page breaks match Windows in our tests, including a real two-page form where Mac used to push extra lines onto page 2. Word can still reflow text very slightly between platforms ([Word MVP notes](https://wordmvp.com/Mac/Differences.html)), so for documents that must be pixel-perfect, export a PDF from Windows.
 </details>
 
 ---

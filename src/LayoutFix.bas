@@ -1,8 +1,9 @@
 Attribute VB_Name = "LayoutFix"
 ' mac-word-layout-fix
-' Word for Mac reads unitless HTML table heights (<td height="36">) as points,
-' while Word for Windows reads them as 96-dpi pixels (36px = 27pt).
-' Rows end up 4/3 taller on Mac. This rescales them after an HTML file opens.
+' Word for Mac reads unitless HTML table sizes (<td height="36">, cellpadding="3")
+' as points, while Word for Windows reads them as 96-dpi pixels (36px = 27pt).
+' Rows end up taller on Mac. This rescales row heights and cell padding after
+' an HTML-based document opens. Runs inside Word, so it takes well under a second.
 
 Option Explicit
 
@@ -16,14 +17,14 @@ Public Sub AutoExec()
     Set appEvents.App = Word.Application
 End Sub
 
-' Manual entry point: Tools > Macro > Macros > FixActiveDocument.
+' Manual entry point, also called by the Scripts-menu AppleScript.
 Public Sub FixActiveDocument()
     If Documents.Count = 0 Then Exit Sub
-    FixDocument ActiveDocument, True
+    FixDocument ActiveDocument
 End Sub
 
-Public Sub FixDocument(ByVal doc As Document, Optional ByVal force As Boolean = False)
-    If Not force And Not IsHtmlDocument(doc) Then Exit Sub
+Public Sub FixDocument(ByVal doc As Document)
+    If Not IsHtmlDocument(doc) Then Exit Sub
 
     Dim wasSaved As Boolean
     wasSaved = doc.Saved
@@ -51,6 +52,13 @@ Private Sub FixTable(ByVal t As Table)
     Dim key As String
 
     On Error Resume Next
+
+    ' Cells inherit the table's padding, so scaling the table is enough.
+    t.TopPadding = t.TopPadding * PX_TO_PT
+    t.BottomPadding = t.BottomPadding * PX_TO_PT
+    t.LeftPadding = t.LeftPadding * PX_TO_PT
+    t.RightPadding = t.RightPadding * PX_TO_PT
+
     For Each c In t.Range.Cells
         ' Range.Cells also returns cells of nested tables; skip those here.
         If c.NestingLevel = t.NestingLevel Then
