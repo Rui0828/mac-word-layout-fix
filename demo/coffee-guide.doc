@@ -1,0 +1,108 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Coffee Brewing Reference</title>
+<!--
+  Demo file for mac-word-layout-fix. All content is made up.
+  This is an HTML page saved with a .doc extension, the way many web apps
+  export "Word" documents. Table heights are unitless (px): Word for Windows
+  reads 36 as 27pt, Word for Mac reads it as 36pt.
+-->
+<style type="text/css">
+body { margin: 0; font-family: "Times New Roman"; }
+@page Section1 { size: 595.3pt 841.9pt; margin: 0.5cm 1.0cm; }
+div.Section1 { page: Section1; }
+p { margin: 0px auto; }
+.title { font-size: 26px; font-weight: bold; }
+.sub { font-size: 15px; font-style: italic; }
+#guide { border: thin solid #666; font-size: 15px; line-height: 18px; }
+.list { font-size: 15px; line-height: 18px; }
+.note { font-size: 13px; line-height: 15px; }
+</style>
+</head>
+<body>
+<div class=Section1>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr><td height="48" align="center" valign="middle" class="title">Coffee Brewing Reference Card</td></tr>
+  <tr><td height="28" align="center" valign="middle" class="sub">Demo document with made-up content, for testing Word layout only</td></tr>
+</table>
+<table width="99%" border="1" cellpadding="3" cellspacing="0" id="guide">
+  <tr>
+    <td width="20%" height="40" align="center" valign="middle"><strong>Method</strong></td>
+    <td width="18%" align="center" valign="middle"><strong>Ratio</strong></td>
+    <td align="center" valign="middle"><strong>Notes</strong></td>
+  </tr>
+  <tr>
+    <td height="96" align="center" valign="middle"><strong>Pour-over</strong></td>
+    <td align="center" valign="middle">1 : 16</td>
+    <td valign="middle"><table width="100%" border="0" cellpadding="2" cellspacing="0" class="list">
+      <tr><td width="6%" align="right" valign="top">1.</td><td>Rinse the paper filter with hot water and discard the rinse water.</td></tr>
+      <tr><td align="right" valign="top">2.</td><td>Bloom with twice the coffee weight in water for 30 to 45 seconds.</td></tr>
+      <tr><td height="24" align="right" valign="top">3.</td><td>Pour in slow spirals and aim to finish in about three minutes.</td></tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="96" align="center" valign="middle"><strong>French press</strong></td>
+    <td align="center" valign="middle">1 : 15</td>
+    <td valign="middle"><table width="100%" border="0" cellpadding="2" cellspacing="0" class="list">
+      <tr><td width="6%" align="right" valign="top">1.</td><td>Use a coarse grind, similar in texture to sea salt.</td></tr>
+      <tr><td align="right" valign="top">2.</td><td>Steep for four minutes, then break the crust and skim the foam.</td></tr>
+      <tr><td height="24" align="right" valign="top">3.</td><td>Press gently and serve right away so the coffee does not over-extract.</td></tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="84" align="center" valign="middle"><strong>Espresso</strong></td>
+    <td align="center" valign="middle">1 : 2</td>
+    <td valign="middle"><table width="100%" border="0" cellpadding="2" cellspacing="0" class="list">
+      <tr><td width="6%" align="right" valign="top">1.</td><td>Dose 18 g of finely ground coffee and tamp evenly.</td></tr>
+      <tr><td align="right" valign="top">2.</td><td>Target about 36 g in the cup within 25 to 30 seconds.</td></tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="84" align="center" valign="middle"><strong>AeroPress</strong></td>
+    <td align="center" valign="middle">1 : 14</td>
+    <td valign="middle"><table width="100%" border="0" cellpadding="2" cellspacing="0" class="list">
+      <tr><td width="6%" align="right" valign="top">1.</td><td>Use the inverted method if you want a longer, fuller steep.</td></tr>
+      <tr><td align="right" valign="top">2.</td><td>Stir for ten seconds, wait one minute, then press for about thirty seconds.</td></tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="84" align="center" valign="middle"><strong>Cold brew</strong></td>
+    <td align="center" valign="middle">1 : 8</td>
+    <td valign="middle"><table width="100%" border="0" cellpadding="2" cellspacing="0" class="list">
+      <tr><td width="6%" align="right" valign="top">1.</td><td>Steep coarse grounds in cold water for 12 to 18 hours in the fridge.</td></tr>
+      <tr><td align="right" valign="top">2.</td><td>Filter twice and dilute the concentrate one to one before serving.</td></tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="84" align="center" valign="middle"><strong>Moka pot</strong></td>
+    <td align="center" valign="middle">1 : 7</td>
+    <td valign="middle"><table width="100%" border="0" cellpadding="2" cellspacing="0" class="list">
+      <tr><td width="6%" align="right" valign="top">1.</td><td>Fill the base with hot water just below the safety valve.</td></tr>
+      <tr><td align="right" valign="top">2.</td><td>Take it off the heat as soon as the coffee starts to sputter.</td></tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="84" align="center" valign="middle"><strong>Siphon</strong></td>
+    <td align="center" valign="middle">1 : 15</td>
+    <td valign="middle"><table width="100%" border="0" cellpadding="2" cellspacing="0" class="list">
+      <tr><td width="6%" align="right" valign="top">1.</td><td>Wait until the water rises into the upper chamber before adding coffee.</td></tr>
+      <tr><td align="right" valign="top">2.</td><td>Stir gently, brew for one minute, then remove the heat to draw down.</td></tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="84" align="center" valign="middle"><strong>Turkish</strong></td>
+    <td align="center" valign="middle">1 : 10</td>
+    <td valign="middle"><table width="100%" border="0" cellpadding="2" cellspacing="0" class="list">
+      <tr><td width="6%" align="right" valign="top">1.</td><td>Grind to a powder and mix it with cold water in the pot.</td></tr>
+      <tr><td align="right" valign="top">2.</td><td>Heat slowly and pour just before the foam rises to the rim.</td></tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="60" align="center" valign="middle"><strong>General tips</strong></td>
+    <td colspan="2" valign="middle" class="note">Weigh coffee and water instead of using scoops, grind right before brewing, and adjust one variable at a time when tuning a recipe.</td>
+  </tr>
+</table>
+</div>
+</body>
+</html>
