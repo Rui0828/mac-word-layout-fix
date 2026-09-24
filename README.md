@@ -52,12 +52,9 @@ To remove it: `./uninstall.sh`
 
 ## 🔍 How it works
 
-```mermaid
-flowchart LR
-    A["&lt;td height=36&gt;<br/>unitless = CSS px"] --> W["Word for Windows<br/>36 × 0.75 = 27 pt ✅"]
-    A --> M["Word for Mac<br/>reads 36 pt ❌"]
-    M --> F["mac-word-layout-fix<br/>36 × 0.75 = 27 pt ✅"]
-```
+<p align="center">
+  <img src="docs/how-it-works.png" alt="How it works: Windows converts 36px to 27pt, Mac reads 36pt, the fix scales it to 27pt" width="100%">
+</p>
 
 HTML table heights are often written without a unit, meaning CSS pixels. Windows converts them at 96 dpi (× 0.75). Word for Mac uses the number as points, even though it converts font sizes in the same file correctly. The *Web Options → Pixels per inch* setting doesn't affect it.
 

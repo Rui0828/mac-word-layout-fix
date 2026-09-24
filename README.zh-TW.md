@@ -52,12 +52,9 @@ cd mac-word-layout-fix
 
 ## 🔍 原理
 
-```mermaid
-flowchart LR
-    A["&lt;td height=36&gt;<br/>沒有單位 = CSS px"] --> W["Windows 版 Word<br/>36 × 0.75 = 27 pt ✅"]
-    A --> M["Mac 版 Word<br/>讀成 36 pt ❌"]
-    M --> F["mac-word-layout-fix<br/>36 × 0.75 = 27 pt ✅"]
-```
+<p align="center">
+  <img src="docs/how-it-works.png" alt="原理：Windows 把 36px 換算成 27pt，Mac 讀成 36pt，修正後變回 27pt" width="100%">
+</p>
 
 網頁表格的高度常常沒寫單位，代表 CSS 像素。Windows 以 96 dpi 換算（× 0.75），Mac 版 Word 卻直接把數字當成 pt，但同一份檔案裡的字級它又換算正確。調整「網頁選項 → 每英吋像素」對這個問題沒有作用。
 
