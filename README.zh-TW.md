@@ -31,8 +31,8 @@
 ## ✨ 特色
 
 - 🎯 **精準到點**：修正後的列高跟 Windows 版 Word 完全相同（兩邊都實測過）。
-- ⚡ **一行指令安裝**：在 Word 的「指令碼」選單加入 *Fix HTML Table Layout*。
-- 🤖 **可選的自動模式**：Word 增益集，有問題的檔案一打開就自動修正。
+- ⚡ **一行指令安裝**：沒有相依套件，不用任何設定。
+- 🤖 **自動修正**：Word 增益集在檔案打開的瞬間就修正好，另外也有指令碼選單可以手動執行。
 - 🛡️ **安全**：只處理網頁格式的文件，不會存檔，不會動到一般的 `.docx`。
 - 🔤 **字型指南**：怎麼合法補齊標楷體、新細明體等 Windows 字型。
 
@@ -44,7 +44,7 @@ cd mac-word-layout-fix
 ./install.sh
 ```
 
-重新開啟 Word。打開版面跑掉的文件，點 **指令碼選單（📜）→ Fix HTML Table Layout**。
+重新開啟 Word 就完成了：網頁格式的文件打開時會自動修正。也可以從 **指令碼選單（📜）→ Fix HTML Table Layout** 手動執行。
 
 可以用 [`demo/coffee-guide.doc`](demo/coffee-guide.doc) 試試：2 頁 → 1 頁。
 
@@ -69,14 +69,23 @@ cd mac-word-layout-fix
 
 修正工具會判斷文件是不是以網頁格式開啟，走過每一個表格（包含內層表格），把列高乘以 0.75。只改 Word 裡開著的內容。
 
-## 🤖 自動修正增益集（選用）
+## 🤖 自動修正增益集
 
-增益集會在有問題的文件打開時自動修正。Word 只允許透過 VBA 編輯器加入程式碼，所以需要手動建立一次：
+`install.sh` 會一併安裝 `dist/MacWordLayoutFix.dotm`，這個 Word 增益集會在有問題的文件打開時自動修正，什麼都不用點。一般的 `.docx` 不會被動到（實測：修正後另存成 `.docx` 再打開，列高維持不變）。
 
-1. 在 Word 開一份空白文件，點「**工具 → 巨集 → Visual Basic 編輯器**」。
-2. 選取這份文件的專案，點「**檔案 → 匯入檔案…**」，匯入 `src/LayoutFix.bas` 和 `src/LayoutFixEvents.cls`。
-3. 關閉編輯器，點「**檔案 → 另存新檔…**」，格式選「**Word 啟用巨集的範本 (.dotm)**」，檔名取 `MacWordLayoutFix.dotm`。
-4. 把檔案移到 `dist/`，再執行一次 `./install.sh`。
+確認是否載入：「**工具 → 範本與增益集…**」清單裡應該有 `MacWordLayoutFix.dotm`。
+
+<details>
+<summary>從原始碼重新建立增益集</summary>
+
+<br>
+
+1. 在 Word 開一份空白文件，另存成「**Word 啟用巨集的範本 (.dotm)**」，檔名取 `MacWordLayoutFix.dotm`。
+2. 點「**工具 → 巨集 → Visual Basic 編輯器**」，選取這個範本的專案。
+3. 點「**檔案 → 匯入檔案…**」，匯入 `src/LayoutFix.bas` 和 `src/LayoutFixEvents.cls`。`.cls` 必須出現在「類別模組」底下；如果跑到「模組」，代表檔案的換行格式不是 CRLF。
+4. 存檔，把檔案複製到 `dist/`，再執行 `./install.sh`。
+
+</details>
 
 ## 🔤 缺少字型
 

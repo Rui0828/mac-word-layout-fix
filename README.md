@@ -31,8 +31,8 @@ This repo fixes it.
 ## ✨ Features
 
 - 🎯 **Point-accurate.** Row heights match Word for Windows exactly (verified on both platforms).
-- ⚡ **One command to install.** Adds a *Fix HTML Table Layout* item to Word's Scripts menu.
-- 🤖 **Optional auto mode.** A Word add-in that fixes affected files as they open.
+- ⚡ **One command to install.** No dependencies, nothing to configure.
+- 🤖 **Automatic.** A Word add-in fixes affected files the moment they open. A Scripts-menu item is there too.
 - 🛡️ **Safe.** Only touches HTML-based documents, never saves your file, never modifies regular `.docx`.
 - 🔤 **Font guide.** How to legally fill in missing Windows fonts such as 標楷體 and 新細明體.
 
@@ -44,7 +44,7 @@ cd mac-word-layout-fix
 ./install.sh
 ```
 
-Restart Word. Then open a document that looks off and choose **Scripts menu (📜) → Fix HTML Table Layout**.
+Restart Word. That's it: HTML-based documents are fixed as they open. You can also run the fix by hand from **Scripts menu (📜) → Fix HTML Table Layout**.
 
 Try it on [`demo/coffee-guide.doc`](demo/coffee-guide.doc): 2 pages → 1 page.
 
@@ -69,14 +69,23 @@ Measured on the same file with Word 16.113 for Mac and Word 16.0 (build 20326) f
 
 The fix detects documents that Word opened as HTML, walks every table (including nested ones), and scales row heights by 0.75. It only changes the document in memory.
 
-## 🤖 Auto-fix add-in (optional)
+## 🤖 Auto-fix add-in
 
-The add-in fixes affected documents automatically as they open. Word only allows adding VBA through its editor, so you build it once:
+`install.sh` also installs `dist/MacWordLayoutFix.dotm`, a Word add-in that fixes affected documents automatically as they open. You don't need to click anything. Regular `.docx` files are left alone (tested: a fixed file saved as `.docx` and reopened keeps its heights).
 
-1. In Word, create a blank document and open **Tools → Macro → Visual Basic Editor**.
-2. Select the document's project, then **File → Import File…** and import `src/LayoutFix.bas` and `src/LayoutFixEvents.cls`.
-3. Close the editor, then **File → Save As…** as **Word Macro-Enabled Template (.dotm)** named `MacWordLayoutFix.dotm`.
-4. Move it into `dist/` and run `./install.sh` again.
+To check it's loaded: **Tools → Templates and Add-ins…** should list `MacWordLayoutFix.dotm`.
+
+<details>
+<summary>Rebuild the add-in from source</summary>
+
+<br>
+
+1. In Word, create a blank document and save it as **Word Macro-Enabled Template (.dotm)** named `MacWordLayoutFix.dotm`.
+2. Open **Tools → Macro → Visual Basic Editor** and select that template's project.
+3. **File → Import File…** and import `src/LayoutFix.bas` and `src/LayoutFixEvents.cls`. The `.cls` must appear under *Class Modules*; if it lands under *Modules*, the file lost its CRLF line endings.
+4. Save, copy the file into `dist/`, and run `./install.sh`.
+
+</details>
 
 ## 🔤 Missing fonts
 
